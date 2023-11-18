@@ -1,2 +1,2 @@
 # Npax
-An offline-first npm client writen rust
+An npm client. But rusty.
