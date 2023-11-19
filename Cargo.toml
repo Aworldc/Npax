@@ -1,0 +1,8 @@
+[package]
+name = "npax"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+platform-dirs = "0.3.0"
