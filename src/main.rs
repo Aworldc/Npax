@@ -1,48 +1,23 @@
 use std::env::args;
 
+mod about;
+mod dirs;
 mod pm;
-mod util;
 
 fn main() {
     let args = args().collect::<Vec<String>>();
 
     if args.len() > 1  {
-        if args[1] == "ia".to_owned() {
-            pm::index::add();
-        } else if args[1] == "ir".to_owned() {
-            pm::index::remove();
-        } else if args[1] == "iu".to_owned() {
-            pm::index::update();
-        } else if args[1] == "pi".to_owned() {
-            pm::project::install();
-        } else if args[1] == "pd".to_owned() {
-            pm::project::dev_install();
-        } else if args[1] == "pr".to_owned() {
-            pm::project::remove();
-        } else if args[1] == "pu".to_owned() {
-            pm::project::update();
-        } else if args[1] == "pc".to_owned() {
-            pm::project::create();
-        } else if args[1] == "ps".to_owned() {
-            pm::project::scaffhold();
-        } else if args[1] == "px".to_owned() {
-            pm::project::execute();
-        } else if args[1] == "gi".to_owned() {
-            pm::global::install();
-        } else if args[1] == "gr".to_owned() {
-            pm::global::remove();
-        } else if args[1] == "gu".to_owned() {
-            pm::global::update();
-        } else if args[1] == "gx".to_owned() {
-            pm::global::execute();
-        } else if args[1] == "ah".to_owned() {
-            pm::about::help();
-        } else if args[1] == "ac".to_owned() {
-            pm::about::configure();
-        } else if args[1] == "au".to_owned() {
-            pm::about::update();
-        }
+        if args[1] == "x".to_owned() {
+            pm::exec();
+        } else if args[1] == "c".to_owned() {
+            pm::create();
+        } else if args[1] == "g".to_owned() {
+            pm::global_exec();
+        } else if args[1] == "h".to_owned() {
+            about::help();
+        } 
     } else {
-        pm::about::help();
+        about::help();
     }
 }
