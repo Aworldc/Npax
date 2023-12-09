@@ -1,2 +1,2 @@
 # Npax
-An npm client. But rusty.
+An npm client with an emphasis on scripting, written in rust.
