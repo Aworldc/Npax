@@ -8,6 +8,7 @@ An npm client with an emphasis on scripting and offline usage, written in rust.
 - [ ] Offline usage/cacheing
 - [ ] Import/convert package.json files to npax.toml files
 - [ ] Scaffholding/degit-like command
+- [ ] Modules
 - [ ] Subpackages
 - [ ] Scripts that depend on scripts of subpackages
 - [ ] Concurrency/threading
