@@ -9,6 +9,9 @@
     </picture>
 
 An npm client written in rust, with an emphasis on scripting and offline usability
+
+![GitHub top language](https://img.shields.io/github/languages/top/Aworldc/npax)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/Aworldc/npax)
 </div>
 
 ## Summary
