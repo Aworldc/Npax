@@ -1,5 +1,15 @@
-# Npax
+<div align = center>
+    <picture>
+        <source
+            srcset="dark.png"
+            width="200"
+            media="(prefers-color-scheme: dark)"
+        >
+        <img width="200" src="light.png">
+    </picture>
+
 An npm client with an emphasis on scripting and offline usage, written in rust.
+</div>
 
 ## Features/Roadmap
 - [ ] Scripts
