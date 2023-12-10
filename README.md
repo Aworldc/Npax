@@ -8,7 +8,7 @@
         <img width="200" src="light.png">
     </picture>
 
-An npm client with an emphasis on scripting and offline usage, that's written in rust.
+An npm client written in rust, with a emphasis on scripting and offline usability.
 </div>
 
 ## Features/Roadmap
@@ -24,7 +24,7 @@ An npm client with an emphasis on scripting and offline usage, that's written in
 - 🔴 Import/convert package.json files to npax.toml files
 - 🔴 Scaffholding/degit-like command
 - 🔴 Modules
-- 🔴 Subpackages
+- 🔴 Subpackages/monorepo system
 - 🔴 Scripts that depend on scripts of subpackages
 - 🔴 Concurrency/threading
 - 🔴 Global dependencies/npx-like command
