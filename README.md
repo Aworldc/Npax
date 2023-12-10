@@ -8,7 +8,7 @@
         <img width="200" src="light.png">
     </picture>
 
-An npm client written in rust, with a emphasis on scripting and offline usability.
+An npm client written in rust, with an emphasis on scripting and offline usability
 </div>
 
 ## Features/Roadmap
