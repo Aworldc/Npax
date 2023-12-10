@@ -11,12 +11,18 @@
 An npm client written in rust, with an emphasis on scripting and offline usability
 </div>
 
+## Summary
+In most npm clients, like npm and pnpm,
+dependencies are the core of it - packages have dependencies, and they have scripts.
+Npax thinks differently.
+In Npax, scripts are the core of everything. Individual scripts can depend on specific packages, and they can depend on 
+
 ## Features/Roadmap
 `🟢 Done`
 `🟡 In progress`
 `🔴 Not started`
 
-- 🟢 Project initialization
+- 🟡 Project initialization
 - 🟡 Scripts
 - 🔴 Scripts that depend on packages
 - 🔴 Scripts that depend on other scripts
