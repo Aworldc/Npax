@@ -26,11 +26,12 @@ In Npax, scripts are the core of everything. Individual scripts can depend on sp
 `🟡 In progress`
 `🔴 Not started`
 
-- 🟡 Project initialization
-- 🟡 Scripts
+- 🟢 Project initialization
+- 🟢 Scripts
 - 🔴 Scripts that depend on packages
 - 🔴 Scripts that depend on other scripts
 - 🔴 Offline usage/cacheing
+- 🔴 Export/compile npax.toml files to package.json files
 - 🔴 Import/convert package.json files to npax.toml files
 - 🔴 Scaffholding/degit-like command
 - 🔴 Modules
