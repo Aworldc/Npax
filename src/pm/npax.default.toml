@@ -1,0 +1,6 @@
+[package]
+name = "mypackage"
+version = "0.1.0"
+
+[scripts]
+main = { command = "node src/main.js" }

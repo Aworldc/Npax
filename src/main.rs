@@ -1,7 +1,6 @@
 use std::env::args;
 
 mod about;
-mod dirs;
 mod pm;
 
 fn main() {
