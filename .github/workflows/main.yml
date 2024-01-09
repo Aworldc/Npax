@@ -39,6 +39,6 @@ jobs:
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
           target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        key: ${{ runner.os }}-buildtest-${{ hashFiles('**/Cargo.lock') }}
     - name: Run unit tests
       run: cargo test
