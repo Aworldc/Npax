@@ -17,16 +17,28 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Restore cache
-      uses: actions/cache/restore@v3
+      id: restore-cache
+      uses: actions/cache@v3
       with:
-        path: target
-        key: buildtest-target-cache
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-buildtest-${{ hashFiles('**/Cargo.lock') }}
     - name: Build
       run: cargo build
     - name: Update cache
+      if: steps.restore-cache.outputs.cache-hit != 'true'
       uses: actions/cache/save@v3
       with:
-        path: target
-        key: buildtest-target-cache
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - name: Run unit tests
       run: cargo test
