@@ -1,47 +1,227 @@
-#[derive(Debug)]
+#[cfg(test)]
+mod tests {
+    use crate::pm::parser::{
+        parse_dep_string, DepInfo, Dependency, DependencyType, DependencyVersion, GitRepo, Runtime,
+    };
+
+    #[test]
+    fn it_recognises_local_script_dependencies() {
+        assert_eq!(
+            parse_dep_string("build".to_owned()),
+            Some(DepInfo {
+                package: Dependency::This,
+                item: DependencyType::Script("build".to_owned()),
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("main".to_owned()),
+            Some(DepInfo {
+                package: Dependency::This,
+                item: DependencyType::Script("main".to_owned()),
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_npm_deps() {
+        assert_eq!(
+            parse_dep_string("express#npm".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Npm("express".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("@material/web#npm".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Npm("@material/web".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_major_versions() {
+        assert_eq!(
+            parse_dep_string("express=4#npm".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Npm("express".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Major(4)
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_specific_versions() {
+        assert_eq!(
+            parse_dep_string("express=4.18.2#npm".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Npm("express".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Specific("4.18.2".to_owned())
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_pypi_deps() {
+        assert_eq!(
+            parse_dep_string("tqdm#pypi".to_owned()),
+            Some(DepInfo {
+                package: Dependency::PyPi("tqdm".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_subpackage_deps() {
+        assert_eq!(
+            parse_dep_string("thing#sub".to_owned()),
+            Some(DepInfo {
+                package: Dependency::SubPackage("thing".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("subpackage#sub".to_owned()),
+            Some(DepInfo {
+                package: Dependency::SubPackage("subpackage".to_owned()),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_subpackage_scripts() {
+        assert_eq!(
+            parse_dep_string("thing:build#sub".to_owned()),
+            Some(DepInfo {
+                package: Dependency::SubPackage("thing".to_owned()),
+                item: DependencyType::Script("build".to_owned()),
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("thing:dosomething#sub".to_owned()),
+            Some(DepInfo {
+                package: Dependency::SubPackage("thing".to_owned()),
+                item: DependencyType::Script("dosomething".to_owned()),
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_git_deps() {
+        assert_eq!(
+            parse_dep_string("Aworldc/Something#git:github.com".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Git(GitRepo {
+                    base: "github.com".to_owned(),
+                    repo: "Aworldc/Something".to_owned()
+                }),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+    }
+
+    #[test]
+    fn it_recognises_runtime_deps() {
+        assert_eq!(
+            parse_dep_string("node#runtime".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Runtime(Runtime::Node),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("python#runtime".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Runtime(Runtime::Python),
+                item: DependencyType::Module,
+                version: DependencyVersion::Any
+            })
+        );
+
+        assert_eq!(
+            parse_dep_string("node=18#runtime".to_owned()),
+            Some(DepInfo {
+                package: Dependency::Runtime(Runtime::Node),
+                item: DependencyType::Module,
+                version: DependencyVersion::Major(18)
+            })
+        );
+    }
+
+    #[test]
+    fn it_returns_none_for_invalid_depstrings() {
+        assert_eq!(parse_dep_string("example#yomomma".to_owned()), None);
+        assert_eq!(parse_dep_string("express##npm".to_owned()), None);
+        assert_eq!(parse_dep_string("express=4=3#npm".to_owned()), None);
+        assert_eq!(parse_dep_string("#".to_owned()), None);
+    }
+}
+
+#[derive(Debug, PartialEq)]
 pub struct DepInfo {
     pub package: Dependency,
     pub item: DependencyType,
     pub version: DependencyVersion,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Dependency {
     Npm(String),
     PyPi(String),
     SubPackage(String),
     This,
     Git(GitRepo),
-    Runtime(Runtime)
+    Runtime(Runtime),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum DependencyType {
     Module,
     Script(String),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum DependencyVersion {
     Any,
     Major(u32),
     Specific(String),
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct GitRepo {
     pub base: String,
-    pub repo: String
+    pub repo: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Runtime {
     Node,
-    Python
+    Python,
 }
 
 pub fn parse_dep_string(dep_string: String) -> Option<DepInfo> {
-    let string = dep_string.split("@").collect::<Vec<&str>>();
+    let string = dep_string.split("#").collect::<Vec<&str>>();
 
     if string.len() == 1 {
         Some(DepInfo {
@@ -111,7 +291,11 @@ pub fn parse_dep_string(dep_string: String) -> Option<DepInfo> {
                         };
 
                         match dependency {
-                            Some(dep) => Some(DepInfo { package: dep, item, version }),
+                            Some(dep) => Some(DepInfo {
+                                package: dep,
+                                item,
+                                version,
+                            }),
                             None => None,
                         }
                     }
