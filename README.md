@@ -21,6 +21,8 @@ dependencies are the core of it - packages have dependencies, and they have scri
 Npax thinks differently.
 In Npax, scripts are the core of everything. Individual scripts can depend on specific packages, and they can depend on other scripts.
 
+Npax will eventually be extended to be a replacement for npm, nvm, pip, python-venv, cargo, rustup, and that odd folder full of bash scripts.
+
 ## Features/Roadmap
 `🟢 Done`
 `🟡 In progress`
