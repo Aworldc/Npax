@@ -41,7 +41,10 @@ In Npax, scripts are the core of everything. Individual scripts can depend on sp
 - 🔴 Global dependencies/npx-like command
 - 🔴 Node version management
 - 🔴 Python/Pypi support
+- 🔴 Rust/Crates.io support
 - 🔴 Python version management
+- 🔴 Rust version management without using rustup
+- 🔴 Rust/Crates.io compilation without using cargo
 
 ## Usage
 The heart of npax is the npax.toml file, where scripts are stored.
